@@ -24,10 +24,6 @@ export default class NewNote extends Component {
     });
   }
 
-  validateForm() {
-    return this.state.content.length > 0;
-  }
-
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
@@ -62,6 +58,10 @@ export default class NewNote extends Component {
       alert(e);
       this.setState({ isLoading: false });
     }
+  }
+
+  validateForm() {
+    return this.state.content.length > 0;
   }
 
   render() {

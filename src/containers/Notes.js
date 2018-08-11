@@ -51,12 +51,30 @@ export default class Notes extends Component {
     });
   }
 
-  validateForm() {
-    return this.state.content.length > 0;
+  deleteNote() {
+    return API.del("notes", `/notes/${this.props.match.params.id}`);
   }
 
-  formatFilename(str) {
-    return str.replace(/^\w+-/, "");
+  handleDelete = async event => {
+    event.preventDefault();
+
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this note?"
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.setState({ isDeleting: true });
+
+    try {
+      await this.deleteNote();
+      this.props.history.push("/");
+    } catch (e) {
+      alert(e);
+      this.setState({ isDeleting: false });
+    }
   }
 
   handleChange = event => {
@@ -95,6 +113,14 @@ export default class Notes extends Component {
       alert(e);
       this.setState({ isLoading: false });
     }
+  }
+
+  validateForm() {
+    return this.state.content.length > 0;
+  }
+
+  formatFilename(str) {
+    return str.replace(/^\w+-/, "");
   }
 
   render() {
