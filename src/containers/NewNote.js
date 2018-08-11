@@ -18,6 +18,12 @@ export default class NewNote extends Component {
     };
   }
 
+  createNote(note) {
+    return API.post("notes", "/notes", {
+      body: note
+    });
+  }
+
   validateForm() {
     return this.state.content.length > 0;
   }
@@ -56,12 +62,6 @@ export default class NewNote extends Component {
       alert(e);
       this.setState({ isLoading: false });
     }
-  }
-
-  createNote(note) {
-    return API.post("notes", "/notes", {
-      body: note
-    });
   }
 
   render() {
