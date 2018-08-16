@@ -15,6 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync build/ s3://scratch-notes-app-client --delete",
+    "postdeploy": "aws cloudfront create-invalidation --distribution-id E1MTJB7AAGLPGG --paths /* && aws cloudfront create-invalidation --distribution-id EKKS955YMDOBD --paths /*",
     "eject": "react-scripts eject"
   }
 }
